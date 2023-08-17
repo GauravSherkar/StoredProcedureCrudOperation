@@ -14,10 +14,7 @@ namespace BrilliantInfoSystem_Task1
     public partial class EmployeeAddress : System.Web.UI.Page
     {
 
-        //public void DataLoad()
-        //{
-        //    
-        //}
+     
         protected void Page_Load(object sender, EventArgs e)
         {
              DisplayEmployeeAddress();            
@@ -35,7 +32,6 @@ namespace BrilliantInfoSystem_Task1
                 {                   
                     SqlCommand cmd = new SqlCommand("sp_Insert", con);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.AddWithValue("@EmpId", DropDownList2.Text);                   
                     cmd.Parameters.AddWithValue("@FirstName", TextBox1.Text);
                     cmd.Parameters.AddWithValue("@LastName", TextBox2.Text);
                     cmd.Parameters.AddWithValue("@Email", TextBox3.Text);
@@ -44,12 +40,12 @@ namespace BrilliantInfoSystem_Task1
                     cmd.Parameters.AddWithValue("@State", TextBox6.Text);                   
                     cmd.Parameters.AddWithValue("@Gender", DropDownList1.SelectedValue);                   
                     con.Open();
-                    //GetEmployee();
-                    //DisplayEmployeeAddress(); 
+                    
                     int a = cmd.ExecuteNonQuery();
                     if (a > 0)
                     {
                         Response.Write("<script>alert('Query Exicuted Successfully')</script>");                       
+                    //Response.Redirect("EmployeeAddress.aspx");
                     }
                     else
                     {
@@ -73,22 +69,7 @@ namespace BrilliantInfoSystem_Task1
                 con.Close();
             }
         }
-        //protected void GetEmployee()
-        //{
-        //    string ConnectionString = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
-        //    using (SqlConnection con = new SqlConnection(ConnectionString))
-        //    {
-        //        SqlCommand cmd = new SqlCommand("sp_Display", con);
-        //        cmd.CommandType = CommandType.StoredProcedure;
-        //        SqlDataAdapter sda = new SqlDataAdapter(cmd);
-        //        DataTable dt = new DataTable();
-        //        sda.Fill(dt);
-        //        //Textbox7.DataTextField = dt.Columns["EmpId"].ToString();
-        //        //Textbox7.DataValueField = dt.Columns["EmpId"].ToString();
-        //        //Textbox7.DataSource = dt;
-        //        Textbox7.DataBind();
-        //    }
-        //}
+     
         protected void DisplayEmployeeAddress()
         {
             string ConnectionString = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
@@ -136,7 +117,6 @@ namespace BrilliantInfoSystem_Task1
                     cmd.Parameters.AddWithValue("@State", state);
                     cmd.Parameters.AddWithValue("@Gender", gender);
                     con.Open();
-                    
                     int a = cmd.ExecuteNonQuery();
                     if (a > 0)
                     {
@@ -199,13 +179,12 @@ namespace BrilliantInfoSystem_Task1
                     if (a > 0)
                     {
                         Response.Write("<script>alert('Delete SuccessFully')</script>");
+                        //Response.Redirect("EmployeeAddress.aspx");
                     }
                     else
                     {
                         Response.Write("<script>alert('Not Executed')</script>");
                     }
-                    DisplayEmployeeAddress();
-                    Response.Redirect("EmployeeAddress.aspx");
                 }
             }
             catch (Exception k)
@@ -217,5 +196,6 @@ namespace BrilliantInfoSystem_Task1
                 con.Close();
             }
         }
+
     }
 }
