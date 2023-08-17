@@ -102,6 +102,7 @@
     <Content Include="Bootstrap\bootstrap.min.css" />
     <Content Include="EmployeeAddress.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="USE Database.txt" />
     <Content Include="Web.config" />
     <Content Include="WebForm2.aspx" />
   </ItemGroup>

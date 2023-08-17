@@ -1,0 +1,133 @@
+﻿create database BrilliantInfo;
+USE [BrilliantInfo]
+GO
+/****** Object:  Table [dbo].[Address]    Script Date: 17-08-2023 10:05:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Address](
+	[CityId] [int] IDENTITY(1,1) NOT NULL,
+	[State] [varchar](20) NOT NULL,
+	[Gender] [varchar](20) NOT NULL,
+	[EmpId] [int] NOT NULL,
+ CONSTRAINT [PK__Address__F2D21B768E8CC76C] PRIMARY KEY CLUSTERED 
+(
+	[CityId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Employee]    Script Date: 17-08-2023 10:05:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Employee](
+	[EmpId] [int] IDENTITY(1,11) NOT NULL,
+	[FirstName] [varchar](20) NULL,
+	[LastName] [varchar](20) NULL,
+	[Email] [varchar](30) NULL,
+	[Salary] [numeric](10, 0) NULL,
+	[Designation] [varchar](20) NULL,
+ CONSTRAINT [PK__Employee__AF2DBB99FD535A7F] PRIMARY KEY CLUSTERED 
+(
+	[EmpId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Address]  WITH CHECK ADD  CONSTRAINT [FK__Address__EmpId__38996AB5] FOREIGN KEY([EmpId])
+REFERENCES [dbo].[Employee] ([EmpId])
+GO
+ALTER TABLE [dbo].[Address] CHECK CONSTRAINT [FK__Address__EmpId__38996AB5]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Delete]    Script Date: 17-08-2023 10:05:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_Delete]
+	@EmpId int
+	
+AS
+BEGIN
+Delete from Address where EmpId=@EmpId;
+Delete from Employee where EmpId=@EmpId;
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Display]    Script Date: 17-08-2023 10:05:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[sp_Display]
+	
+  AS
+  BEGIN
+   select E.EmpId,
+       E.FirstName,
+	   E.LastName,
+	   E.Email,
+	   E.Salary,
+	   E.Designation,
+	   A.CityId,
+	   A.State,
+	   A.Gender
+       from Employee E
+	   left Join Address A on E.EmpId=A.EmpId;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Insert]    Script Date: 17-08-2023 10:05:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[sp_Insert]
+
+	@FirstName varchar(20),
+	@LastName varchar(20),
+	@Email varchar(30),
+	@Salary numeric(10,0),
+	@Designation varchar(20),
+	@State varchar(20),
+	@Gender varchar(20)
+AS
+BEGIN   
+Declare @EmpId Int
+Declare @CityId Int
+
+insert into Employee(FirstName,LastName,Email,Salary,Designation) Values(@FirstName,@LastName,@Email,@Salary,@Designation)
+set @EmpId=SCOPE_IDENTITY()
+
+insert into Address(State,Gender,EmpId)Values(@State,@Gender,@EmpId)
+set @CityId=SCOPE_IDENTITY()
+
+
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Update]    Script Date: 17-08-2023 10:05:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[sp_Update]
+	@EmpId int,
+	@FirstName varchar(20),
+	@LastName varchar(20),
+	@Email varchar(20),
+	@Salary varchar(20),
+	@Designation varchar(20),
+	@State Varchar(20),
+	@Gender varchar(20)
+	
+
+AS
+BEGIN
+update Employee set FirstName=@FirstName,LastName=@LastName,Email=@Email,Salary=@Salary,Designation=@Designation where EmpId=@EmpId;
+update Address set State=@State,Gender=@Gender where EmpId=@EmpId;
+END
+GO
