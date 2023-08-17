@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BrilliantInfoModelStoreContainer" CdmEntityContainer="BrilliantInfoEntities">
+    <EntitySetMapping Name="Addresses">
+      <EntityTypeMapping TypeName="BrilliantInfoModel.Address">
+        <MappingFragment StoreEntitySet="Address">
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="BrilliantInfoModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_Delete" FunctionName="BrilliantInfoModel.Store.sp_Delete" />
+    <FunctionImportMapping FunctionImportName="sp_Display" FunctionName="BrilliantInfoModel.Store.sp_Display">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BrilliantInfoModel.sp_Display_Result">
+          <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_Insert" FunctionName="BrilliantInfoModel.Store.sp_Insert" />
+    <FunctionImportMapping FunctionImportName="sp_Update" FunctionName="BrilliantInfoModel.Store.sp_Update" />
+  </EntityContainerMapping>
+</Mapping>
