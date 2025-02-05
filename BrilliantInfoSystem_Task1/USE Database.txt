@@ -19,7 +19,7 @@ CREATE TABLE [dbo].[Address](
 GO
 /****** Object:  Table [dbo].[Employee]    Script Date: 17-08-2023 10:05:32 ******/
 SET ANSI_NULLS ON
-GO
+GO     
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Employee](
